@@ -8,10 +8,10 @@
 > would require a lot of time. Also, I have never used Vue before and wanted to give it a try.
 
 3] How much time did you spend on this challenge?
-> 3 hours (so far)
+> 4 hours (so far)
 
 4] What was the most time consuming part of this challenge?
-> Researching and understanding Vue and AudioContext since I have never used them before.
+> Researching and understanding Vue and AudioContext since I have never used any of them before.
 
 5] Is the 'Start' button strictly needed? If so, why? If not, would you think it would be better to remove it?
 > Short answer: Features like the 'Start' button or something similar are not strictly needed, but highly recommended to guarantee functionality.
