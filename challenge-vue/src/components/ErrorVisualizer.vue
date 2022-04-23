@@ -1,12 +1,22 @@
 <script setup>
     import { defineProps } from "vue";
-    defineProps(['error', 'errorNumber']);
+    const props = defineProps(['error', 'errorNumber']);
+
+    // define default error styling
+    let _type = "Error";
+    let _class = "alert-danger";
+
+    // change styling if error is in reality a warning
+    if(props.error.type && props.error.type == "Warning") {
+        _type = "Warning";
+        _class = "alert-warning";
+    }
 </script>
 
 
 <template>
-    <div class="alert alert-danger mb-4 text-left" role="alert">
-        <span>Error #{{ errorNumber }}</span>
+    <div class="alert mb-4 text-left" :class=_class role="alert">
+        <span>INTERRUPTION #{{ errorNumber }} - {{ _type }}</span>
         <h4 class="alert-heading">{{ error.title }}</h4>
         <p>{{ error.message }}</p>
         <hr v-if="error.subMessage"/>

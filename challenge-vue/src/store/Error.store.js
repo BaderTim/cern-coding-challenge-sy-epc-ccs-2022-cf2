@@ -1,3 +1,9 @@
+ /*
+Error.store.js
+This file defines the store functions for the Error module.
+It manages the errors and warnings that are displayed in the UI.
+*/
+ 
  const state = () => ({
     errors: []
 });
@@ -20,7 +26,7 @@ const mutations = {
         }
         // if error has no title or message, it is not an error object
         // in this case throw a prefabricated error
-        const newError = {title: "Invalid Error Object", message: "Error object must have a title and message attribute.", subMessage: "Please contact a system administrator."};
+        const newError = {title: "Invalid Error/Warning Object", message: "Error object must have a title and message attribute.", subMessage: "Please contact a system administrator."};
         // log error to console
         console.error(newError);
         // push error on errors array in state
