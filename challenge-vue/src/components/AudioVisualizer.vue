@@ -1,27 +1,91 @@
 <script setup>
-    // import { useStore } from 'vuex'
-    // const store = useStore();
+    import { watch } from 'vue';
+    import { useStore } from "vuex";
+    const store = useStore();
 
     // visualizer dimensions in px
     const visualizer = {width: 400, height: 400};
     // width of a single bar in px
     // must meet visualizer.width % spectrumBarWidth == 0 
     const spectrumBarWidth = 10;
+    // Maximum refresh rate
+    const fps = 40;
 
     // computed spectrum bar count
     const spectrumBarCount = visualizer.width / spectrumBarWidth;
-
+    // computed fps interval
+    const fpsInterval = 1000 / fps;
     // dynamic css variables
     const _visualizerWidth = visualizer.width + 'px';
     const _visualizerHeight = visualizer.height + 'px';
     const _spectrumBarWidth = spectrumBarWidth + 'px';
+
+    // watch start/stop button from audio element
+    watch(() => store.getters['Audio/isPlaying'], (newValue) => {
+        if(newValue) {
+            // start visualizer
+            startVisualizing();
+        } else {
+            // stop visualizer
+            stopVisualizing();
+        }
+    });
+
+    let stop;
+    let then;
+
+    const startVisualizing = () => {
+        stop = false;
+        then = window.performance.now();
+        visualize();
+    }
+
+    const stopVisualizing = () => {
+        stop = true;
+    }
+
+    const visualize = (now) => {
+        // stop
+        if (stop) {
+            return;
+        }
+        // request another frame
+        window.requestAnimationFrame(visualize);
+        // calc elapsed time since last loop
+        const elapsed = now - then;
+        // if enough time has elapsed, draw the next frame
+        if (elapsed > fpsInterval) {
+            // Get ready for next frame by setting then=now
+            then = now - (elapsed % fpsInterval);
+            console.log('visualizing');
+            // draw stuff here
+
+            // get audio context
+            // get audio timestamp
+            // visualize timestamp
+
+        }
+    }
+
+    // eslint-disable-next-line no-unused-vars
+    const changeSpectrumBarHeight = (id, height) => {
+        // id: the id of the spectrum bar
+        // height: the new height of the spectrum bar in percentage
+        document.getElementById('spectrumBar-'+id).style.height = height + '%';
+    }
+
 </script>
 
 
 <template>
     <div class="visualizer border border-dark m-auto rounded mt-3">
         <!-- Render spectrum bars with for loop -->
-        <div v-for="spectrumBar in spectrumBarCount" :key="spectrumBar" class="spectrum-bar"/>
+        <div 
+            v-for="spectrumBar in spectrumBarCount" 
+            :key="spectrumBar" 
+            :id="'spectrumBar-'+spectrumBar" 
+            class="spectrum-bar"
+        />
     </div>
 </template>
 

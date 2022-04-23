@@ -17,7 +17,7 @@ const app = createApp(App)
 
 // error handler
 // handles exceptions and visualizes them in the UI and console
-app.config.errorHandler = (err, vm, info) => {
+app.config.errorHandler = (err, _, info) => {
     // first log error to console, in case the error store is not working
     console.error(err, info);
     // then try to add error to error store, which also shows it in the UI
@@ -25,8 +25,8 @@ app.config.errorHandler = (err, vm, info) => {
 }
 // warning handler
 // handles warnings and visualizes them in the UI and console
-app.config.warnHandler = (msg, vm, trace) => {
-    // first log warning to console, in case the error store is not working
+app.config.warnHandler = (msg, _, trace) => {
+    // first log warning to console in case the error store is not working
     console.warn(msg, trace);
     // then try to add warning to error store, which also shows it in the UI
     useStore().commit('Error/addError', {title: msg, message: trace, type: "Warning"});
