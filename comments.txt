@@ -25,8 +25,8 @@
 > or "on/off" switch for instance. You can also add an "unmute" button depending on the flow of the app'. 
 
 6] Do you have any suggestions for improving the visual appeal or the user experience of this application?
-> 
-> 
+> Showing a loading screen while loading the audio data (in case the music.mp3 will be larger / stored on another server in the future)
+> Using a dynamic size for the HTML elements to support different screen sizes 
 > 
 > 
 

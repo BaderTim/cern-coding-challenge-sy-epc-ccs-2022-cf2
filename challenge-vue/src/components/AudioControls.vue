@@ -3,15 +3,26 @@
     import { useStore } from 'vuex'
     const store = useStore();
 
-    // All audio files can be registered here
+    // All existing audio files can be registered here
     const audioFiles = ["music.mp3"];
-    // Set the active audio file
+    // Set the default active audio file
     const activeAudioFile = 0;
 
     // Add audio files to store
     audioFiles.forEach(file => {
         store.commit("Audio/addAudioFile", file);
     });
+
+
+    //
+    // functions
+    //
+
+    // select new audio file
+    const selectAudioFile = (index) => {
+        store.commit("Audio/setActiveAudioById", index);
+    }
+
 
     //
     // watchers
@@ -35,39 +46,30 @@
 
     // Set the active audio file on start button click
     const handleStart = () => {
-        store.commit('Audio/setActiveAudioById', activeAudioFile);
+        selectAudioFile(activeAudioFile);
     }
     // handle audio element play
     const handlePlay = () => {
         store.commit("Audio/play");
-
-        // // create audio context
-        // const audioContext = new (window.AudioContext || window.webkitAudioContext)();
-
-        // // create a mediaElementNode within audioContext by passing the HTML audio element
-        // const audioElement = document.getElementById('audio-player');
-        // const mediaElementNode = audioContext.createMediaElementSource(audioElement);
-
-        // // create an analyserNode within audioContext and pass it the outputs 
-        // // from the mediaElementNode by using the connect method
-        // const analyserNode = audioContext.createAnalyser();
-        // analyserNode.fftSize = 256;
-        // mediaElementNode.connect(analyserNode);
-
-        // // create buffer for capturing data from analyserNode 
-        // const bufferLength = analyserNode.frequencyBinCount;
-        // const dataArray = new Uint8Array(bufferLength);
-        // // retrieve the frequency data from the analyserNode
-        // analyserNode.getByteTimeDomainData(dataArray);
-
-        // console.log(dataArray);
-        
     }
     // handle audio element pause
     const handlePause = () => {
         store.commit("Audio/pause");
     }
-
+    // handle audio element load
+    const handleLoadedData = (event) => {
+        // create audio context
+        const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+        // create a mediaElementNode within audioContext by passing the HTML audio element
+        const mediaElementNode = audioContext.createMediaElementSource(event.target);
+        // create an analyserNode within audioContext and pass it the outputs 
+        // from the mediaElementNode by using the connect method
+        const analyserNode = audioContext.createAnalyser();
+        analyserNode.fftSize = 256;
+        mediaElementNode.connect(analyserNode);
+        // save the analyserNode to the store
+        store.commit("Audio/setAnalyserNode", analyserNode);
+    }
 </script>
 
 
@@ -88,12 +90,17 @@
         <audio 
             v-else 
             :src="activeAudioFileName" 
+            @loadeddata="handleLoadedData"
             @play="handlePlay"
             @pause="handlePause"
             id="audio-player"
             controls
             >Your browser does not support the audio element. Try using the latest version of Google Chrome or Firefox.
         </audio>
+        <button
+            class="btn btn-secondary mt-2"
+            @click="selectAudioFile(1)"
+        >change</button>
     </div>
 </template>
 
