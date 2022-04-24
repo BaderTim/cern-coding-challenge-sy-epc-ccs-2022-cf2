@@ -86,7 +86,7 @@
             @click="handleStart"
             >start
         </button>
-
+        
         <audio 
             v-else 
             :src="activeAudioFileName" 

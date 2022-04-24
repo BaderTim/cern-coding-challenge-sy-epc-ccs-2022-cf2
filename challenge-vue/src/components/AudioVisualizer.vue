@@ -1,27 +1,31 @@
 <script setup>
-    import { watch } from 'vue';
+    import { watch, ref } from 'vue';
     import { useStore } from "vuex";
     const store = useStore();
 
     // visualizer dimensions in px
     const visualizer = {width: 400, height: 400};
-    // width of a single bar in px
-    // must meet visualizer.width % spectrumBarWidth == 0 
-    const spectrumBarWidth = 10;
     // maximum refresh rate
     const fps = 40;
 
-    // computed spectrum bar count
-    const spectrumBarCount = visualizer.width / spectrumBarWidth;
-    // computed fps interval
-    const fpsInterval = 1000 / fps;
-    // dynamic css variables
+    // component-global visualization loop variables
+    const fpsInterval = 1000 / fps; // number - computed fps interval
+    let spectrumBarCount = ref(0); // number - of bars in spectrum
+    let spectrumBarWidth = ref(0); // number - width of each bar
+    let analyserNode = ref(null); // analyserNode - audio analyser node
+    let dataArray = ref(null); // Uint8Array - audio data array
+    let stop = ref(true); // boolean - true if visualization loop is running
+    let then = ref(0); // timestamp - last loop iteration
+
+    // css variables
     const _visualizerWidth = visualizer.width + 'px';
     const _visualizerHeight = visualizer.height + 'px';
-    const _spectrumBarWidth = spectrumBarWidth + 'px';
-    // component-global visualization loop variables
-    let stop; // boolean - true if visualization loop is running
-    let then; // timestamp - last loop iteration
+    const _spectrumBarGradient = `linear-gradient(
+        180deg, 
+        rgba(24,234,16,1) 0px, 
+        rgba(251,240,21,1) ${Math.round(1/4 * visualizer.height)}px,
+        rgba(255,72,0,1) ${Math.round(3/4 * visualizer.height)}px
+        )`;
 
 
     //
@@ -30,44 +34,57 @@
 
     // initialize visualizing loop
     const startVisualizing = () => {
-        stop = false;
-        then = window.performance.now();
+        // get analyserNode and initialize empty dataArray
+        analyserNode.value = store.getters['Audio/getAnalyserNode'];
+        analyserNode.value.fftSize = 256;
+        const bufferLength = analyserNode.value.frequencyBinCount;
+        dataArray.value = new Uint8Array(bufferLength);
+        // set spectrumBarCount and spectrumBarWidth according to bufferLength
+        const newSpectrumBarCount = Math.round(bufferLength / 2.5);
+        spectrumBarWidth.value = visualizer.width / newSpectrumBarCount;
+        spectrumBarCount.value = newSpectrumBarCount;
+        // start visualization loop
+        stop.value = false;
+        then.value = window.performance.now();
         visualize();
     }
     // break visualizing loop
     const stopVisualizing = () => {
-        stop = true;
+        spectrumBarCount.value = 0;
+        spectrumBarWidth.value = 0;
+        stop.value = true;
     }
     // visualizing loop function (recursive)
     const visualize = (now) => {
-        // stop
-        if (stop) {
+        // check if visualization loop has been stopped
+        if (stop.value) {
+            // stop visualization loop and clear data
+            analyserNode.value = null;
+            dataArray.value = null;
             return;
         }
         // request another frame
         window.requestAnimationFrame(visualize);
         // calc elapsed time since last loop
-        const elapsed = now - then;
+        const elapsedTime = now - then.value;
         // if enough time has elapsed, draw the next frame
-        if (elapsed > fpsInterval) {
-            // Get ready for next frame by setting then=now
-            then = now - (elapsed % fpsInterval);
-            console.log('visualizing');
-            // draw stuff here
-
-            // get audio context
-            // get audio timestamp
-            // visualize timestamp
-
+        if (elapsedTime > fpsInterval) {
+            // get ready for next frame by setting then=now
+            then.value = now - (elapsedTime % fpsInterval);
+            // get current audio data
+            analyserNode.value.getByteFrequencyData(dataArray.value);
+            // update spectrum bars
+            for(let i = 0; i < spectrumBarCount.value; i++) {
+                // normalize bar height
+                const barHeight = visualizer.height * dataArray.value[i] / 255;
+                // change bar height
+                changeSpectrumBarHeight(i+1, barHeight);
+            }
         }
     }
-
     // sets the height of a single spectrum bar
-    // eslint-disable-next-line no-unused-vars
     const changeSpectrumBarHeight = (id, height) => {
-        // id: the id of the spectrum bar
-        // height: the new height of the spectrum bar in percentage
-        document.getElementById('spectrumBar-'+id).style.height = height + '%';
+        document.getElementById('spectrumBar-'+id).style.height = height + 'px';
     }
 
 
@@ -96,6 +113,7 @@
             v-for="spectrumBar in spectrumBarCount" 
             :key="spectrumBar" 
             :id="'spectrumBar-'+spectrumBar" 
+            :style="{width: spectrumBarWidth+'px'}"
             class="spectrum-bar"
         />
     </div>
@@ -110,8 +128,8 @@
     }
     .spectrum-bar {
         display: block;
-        height: 100%;
-        width: v-bind('_spectrumBarWidth');
-        border: 1px solid rgb(145, 145, 145);
+        border: 1px solid grey;
+        background: rgb(24,234,16);
+        background: v-bind('_spectrumBarGradient');
     }
 </style>
