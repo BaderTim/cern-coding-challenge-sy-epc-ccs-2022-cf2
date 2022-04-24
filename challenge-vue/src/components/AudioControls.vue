@@ -68,7 +68,11 @@
         // from the mediaElementNode by using the connect method
         const analyserNode = audioContext.createAnalyser();
         analyserNode.fftSize = 256;
+        // use analyserNode as middleware between mediaElementNode and audioContext
+        // connect the mediaElementNode to the analyserNode
         mediaElementNode.connect(analyserNode);
+        // connect the analyserNode to the audioContext destination
+        analyserNode.connect(audioContext.destination);
         // save the analyserNode to the store
         store.commit("Audio/setAnalyserNode", analyserNode);
     }
