@@ -129,7 +129,6 @@
     .spectrum-bar {
         display: block;
         border: 1px solid grey;
-        background: rgb(24,234,16);
         background: v-bind('_spectrumBarGradient');
     }
 </style>

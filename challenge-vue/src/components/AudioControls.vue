@@ -89,7 +89,7 @@
         
         <audio 
             v-else 
-            :src="activeAudioFileName" 
+            :src="'music/'+activeAudioFileName" 
             @loadeddata="handleLoadedData"
             @play="handlePlay"
             @pause="handlePause"

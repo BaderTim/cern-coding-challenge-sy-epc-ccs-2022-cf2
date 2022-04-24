@@ -8,7 +8,7 @@
 > would require a lot of time. Also, I have never used Vue before and wanted to give it a try.
 
 3] How much time did you spend on this challenge?
-> 7 hours (so far)
+> ~ 9-10 hours with researching
 
 4] What was the most time consuming part of this challenge?
 > Researching and understanding Vue and AudioContext since I have never used any of them before.
