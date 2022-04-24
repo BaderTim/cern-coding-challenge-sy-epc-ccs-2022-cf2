@@ -8,7 +8,7 @@
     // width of a single bar in px
     // must meet visualizer.width % spectrumBarWidth == 0 
     const spectrumBarWidth = 10;
-    // Maximum refresh rate
+    // maximum refresh rate
     const fps = 40;
 
     // computed spectrum bar count
@@ -19,31 +19,26 @@
     const _visualizerWidth = visualizer.width + 'px';
     const _visualizerHeight = visualizer.height + 'px';
     const _spectrumBarWidth = spectrumBarWidth + 'px';
+    // component-global visualization loop variables
+    let stop; // boolean - true if visualization loop is running
+    let then; // timestamp - last loop iteration
 
-    // watch start/stop button from audio element
-    watch(() => store.getters['Audio/isPlaying'], (newValue) => {
-        if(newValue) {
-            // start visualizer
-            startVisualizing();
-        } else {
-            // stop visualizer
-            stopVisualizing();
-        }
-    });
 
-    let stop;
-    let then;
+    //
+    // functions
+    //
 
+    // initialize visualizing loop
     const startVisualizing = () => {
         stop = false;
         then = window.performance.now();
         visualize();
     }
-
+    // break visualizing loop
     const stopVisualizing = () => {
         stop = true;
     }
-
+    // visualizing loop function (recursive)
     const visualize = (now) => {
         // stop
         if (stop) {
@@ -67,12 +62,29 @@
         }
     }
 
+    // sets the height of a single spectrum bar
     // eslint-disable-next-line no-unused-vars
     const changeSpectrumBarHeight = (id, height) => {
         // id: the id of the spectrum bar
         // height: the new height of the spectrum bar in percentage
         document.getElementById('spectrumBar-'+id).style.height = height + '%';
     }
+
+
+    //
+    // watchers
+    //
+
+    // watch start/stop button from audio element
+    watch(() => store.getters['Audio/isPlaying'], (newValue) => {
+        if(newValue) {
+            // start visualizer
+            startVisualizing();
+            return;
+        } 
+        // stop visualizer
+        stopVisualizing();
+    });
 
 </script>
 

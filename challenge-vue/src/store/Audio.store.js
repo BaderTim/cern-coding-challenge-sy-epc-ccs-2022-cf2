@@ -6,7 +6,7 @@
 const state = () => ({
     audioFiles: [],
     activeAudioIndex: -1,
-    analyzerNode: null,
+    analyserNode: null,
     playing: false,
     _startingTime: -1,
     _passedTime: 0,
@@ -17,7 +17,7 @@ const getters = {
     getSingleAudioById: state => (id) => state.audioFiles[id],
     getActiveAudio: state => state.audioFiles[state.activeAudioIndex],
     getActiveAudioIndex: state => state.activeAudioIndex,
-    getAnalyzerNode: state => state.analyzerNode,
+    getAnalyserNode: state => state.analyserNode,
     isPlaying: state => state.playing,
     getPlayingTime: state => {
         if (state._startingTime === -1) {
@@ -48,8 +48,8 @@ const mutations = {
     setActiveAudioByName(state, fileName) {
         state.activeAudioIndex = state.audioFiles.indexOf(fileName);
     },
-    setAnalyzerNode(state, node) {
-        state.analyzerNode = node;
+    setAnalyserNode(state, node) {
+        state.analyserNode = node;
     },
     play(state) {
         state.playing = true;

@@ -97,10 +97,6 @@
             controls
             >Your browser does not support the audio element. Try using the latest version of Google Chrome or Firefox.
         </audio>
-        <button
-            class="btn btn-secondary mt-2"
-            @click="selectAudioFile(1)"
-        >change</button>
     </div>
 </template>
 
