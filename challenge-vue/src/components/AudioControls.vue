@@ -41,25 +41,26 @@
     const handlePlay = () => {
         store.commit("Audio/play");
 
-        // create audio context
-        const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+        // // create audio context
+        // const audioContext = new (window.AudioContext || window.webkitAudioContext)();
 
-        // create a mediaElementNode within audioContext by passing the HTML audio element
-        const audioElement = document.getElementById('audio-player');
-        const mediaElementNode = audioContext.createMediaElementSource(audioElement);
+        // // create a mediaElementNode within audioContext by passing the HTML audio element
+        // const audioElement = document.getElementById('audio-player');
+        // const mediaElementNode = audioContext.createMediaElementSource(audioElement);
 
-        // create an analyserNode within audioContext and pass it the outputs 
-        // from the mediaElementNode by using the connect method
-        const analyserNode = audioContext.createAnalyser();
-        mediaElementNode.connect(analyserNode);
+        // // create an analyserNode within audioContext and pass it the outputs 
+        // // from the mediaElementNode by using the connect method
+        // const analyserNode = audioContext.createAnalyser();
+        // analyserNode.fftSize = 256;
+        // mediaElementNode.connect(analyserNode);
 
-        // create buffer for capturing data from analyserNode 
-        const bufferLength = analyserNode.frequencyBinCount;
-        const dataArray = new Uint8Array(bufferLength);
-        // retrieve the frequency data from the analyserNode
-        analyserNode.getByteTimeDomainData(dataArray);
+        // // create buffer for capturing data from analyserNode 
+        // const bufferLength = analyserNode.frequencyBinCount;
+        // const dataArray = new Uint8Array(bufferLength);
+        // // retrieve the frequency data from the analyserNode
+        // analyserNode.getByteTimeDomainData(dataArray);
 
-        console.log(dataArray);
+        // console.log(dataArray);
         
     }
     // handle audio element pause
