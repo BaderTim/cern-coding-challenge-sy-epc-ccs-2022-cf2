@@ -1,5 +1,8 @@
 <script setup>
     import { defineProps } from "vue";
+
+    // use props instead of fetching the error store since the 
+    // parent component (App.vue) already has the relevant error data
     const props = defineProps(['error', 'errorNumber']);
 
     // define default error styling

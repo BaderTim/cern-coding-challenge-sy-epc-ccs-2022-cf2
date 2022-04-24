@@ -8,7 +8,7 @@
     // maximum refresh rate
     const fps = 40;
 
-    // component-global visualization loop variables
+    // visualization loop variables
     const fpsInterval = 1000 / fps; // number - computed fps interval
     let spectrumBarCount = ref(0); // number - of bars in spectrum
     let spectrumBarWidth = ref(0); // number - width of each bar
@@ -75,9 +75,9 @@
             analyserNode.value.getByteFrequencyData(dataArray.value);
             // update spectrum bars
             for(let i = 0; i < spectrumBarCount.value; i++) {
-                // normalize bar height
+                // normalize new bar height
                 const barHeight = visualizer.height * dataArray.value[i] / 255;
-                // change bar height
+                // update bar height
                 changeSpectrumBarHeight(i+1, barHeight);
             }
         }

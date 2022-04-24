@@ -25,15 +25,19 @@
 > or "on/off" switch for instance. You can also add an "unmute" button depending on the flow of the app'. 
 
 6] Do you have any suggestions for improving the visual appeal or the user experience of this application?
-> Showing a loading screen while loading the audio data (in case the music.mp3 will be larger / stored on another server in the future)
-> Using a dynamic size for the HTML elements to support different screen sizes 
-> 
-> 
+> - Showing a loading screen while loading the audio data (in case the music.mp3 will be larger / stored on another server in the future)
+> - Using dynamic sizing for the HTML elements to support more screen sizes 
+> - Adding a dark mode
+> - More user control: selecting frequencies, color gradients and other audio files, also adding new audio files
+> - Adding some explanatory text and/or a manual
 
 7] (Only if you added more dependencies) For each added dependency, justify why you added it.
 > 
 
 8] Do you have anything else to add to help us understand your approach?
-> 
-> 
-> 
+> My plan was to keep it simple but lasting. By adding error handling, documentation and an expandable code base future developers 
+> would be able to add new functionality more efficient. 
+> This was my initial abstract approach, which became clearer and clearer during researching VUE and the Audio API by reading
+> the documentation and guides while testing new subapproaches with trial and error. 
+> The architecture of application was supposed to be component orientaded. This combines the view and the logic of each component
+> inside a single file (SFC) while keeping the model (data and its logic) inside store modules.

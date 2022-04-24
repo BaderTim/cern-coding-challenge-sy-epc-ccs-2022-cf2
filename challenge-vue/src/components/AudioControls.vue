@@ -44,7 +44,8 @@
     // handlers
     //
 
-    // Set the active audio file on start button click
+    // handle start button click
+    // sets the active audio file to the given index
     const handleStart = () => {
         selectAudioFile(activeAudioFile);
     }
@@ -57,6 +58,7 @@
         store.commit("Audio/pause");
     }
     // handle audio element load
+    // creates a new analyserNode and stores it in the audio store
     const handleLoadedData = (event) => {
         // create audio context
         const audioContext = new (window.AudioContext || window.webkitAudioContext)();

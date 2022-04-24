@@ -1,15 +1,19 @@
-/**
- * Do not feel like you have to use this store. Only use it if you want to.
- * The skeleton is here to help you get started in case you want to use it.
- */
+ /*
+Audio.store.js
+This file defines the store functions for the Audio module.
+
+It stores all the data related to Audio.
+*/
 
 const state = () => ({
+    // string[] - list of audio file paths
     audioFiles: [],
-    activeAudioIndex: -1,
+    // number - index of the active audio file
+    activeAudioIndex: -1, 
+    // AnalyserNode - the audio analyser node
     analyserNode: null,
-    playing: false,
-    _startingTime: -1,
-    _passedTime: 0,
+    // boolean -  check if audio is playing
+    playing: false 
 });
 
 const getters = {
@@ -18,22 +22,17 @@ const getters = {
     getActiveAudio: state => state.audioFiles[state.activeAudioIndex],
     getActiveAudioIndex: state => state.activeAudioIndex,
     getAnalyserNode: state => state.analyserNode,
-    isPlaying: state => state.playing,
-    getPlayingTime: state => {
-        if (state._startingTime === -1) {
-            return 0;
-        }
-        if(state.playing) {
-            return state._passedTime + (Date.now() - state._startingTime);
-        }
-        return state._passedTime;
-    }
+    isPlaying: state => state.playing
 };
 
 const mutations = {
     addAudioFile(state, fileName) {
         state.audioFiles.push(fileName);
     },
+    // removes audio file from state
+    // sets activeAudioIndex to -1 if the file was the active audio file
+    // else check if the file was before the active audio file
+    // if so, lower the activeAudioIndex by 1
     removeAudioFileById(state, id) {
         state.audioFiles.splice(id, 1);
         if(state.activeAudioIndex === id) {
@@ -53,11 +52,9 @@ const mutations = {
     },
     play(state) {
         state.playing = true;
-        state._startingTime = Date.now();
     },
     pause(state) {
         state.playing = false;
-        state._passedTime += Date.now() - state._startingTime;
     }
 };
 
