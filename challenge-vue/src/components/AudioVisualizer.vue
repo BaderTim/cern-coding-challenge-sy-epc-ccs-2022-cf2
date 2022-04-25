@@ -14,7 +14,7 @@
     let spectrumBarWidth = ref(0); // number - width of each bar
     let analyserNode = ref(null); // analyserNode - audio analyser node
     let dataArray = ref(null); // Uint8Array - audio data array
-    let stop = ref(true); // boolean - true if visualization loop is running
+    let stop = ref(true); // boolean - true if visualization loop should stop
     let then = ref(0); // timestamp - last loop iteration
 
     // css variables
@@ -108,8 +108,15 @@
 
 <template>
     <div class="visualizer border border-dark m-auto rounded mt-3">
+        <!-- Render info if audio is not playing -->
+        <p 
+            v-if="stop"
+            class="lead m-auto"
+            >Currently there is no audio playing.
+        </p>
         <!-- Render spectrum bars with for loop -->
         <div 
+            v-else
             v-for="spectrumBar in spectrumBarCount" 
             :key="spectrumBar" 
             :id="'spectrumBar-'+spectrumBar" 
