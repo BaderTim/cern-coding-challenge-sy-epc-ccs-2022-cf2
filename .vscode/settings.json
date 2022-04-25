@@ -1,6 +1,0 @@
-{
-    "eslint.workingDirectories": [
-        "challenge-vue",
-        "challenge-javascript"
-    ],
-}
