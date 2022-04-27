@@ -1,3 +1,8 @@
+This is my solution to a coding challenge I received while applying for a student fellowship position as frontend developer at [CERN](https://home.cern/). The original repository can be found [here](https://github.com/7PH/sy-epc-ccs-2022-cf2-coding-challenge).
+  
+**Update: I passed the challenge.**
+
+<hr/>
 
 # Context
 
