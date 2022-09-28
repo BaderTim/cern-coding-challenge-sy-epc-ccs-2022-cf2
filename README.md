@@ -1,4 +1,4 @@
-[This](https://badertim.github.io/sy-epc-ccs-2022-cf2-coding-challenge/) is my solution to the coding challenge '_sy-epc-ccs-2022-cf2_' I received while applying for a student fellowship position as frontend developer at [CERN](https://home.cern/). The original repository can be found [here](https://github.com/7PH/sy-epc-ccs-2022-cf2-coding-challenge).  
+[This](https://badertim.github.io/cern-coding-challenge-sy-epc-ccs-2022-cf2/) is my solution to the coding challenge '_sy-epc-ccs-2022-cf2_' I received while applying for a student fellowship position as frontend developer at [CERN](https://home.cern/). The original repository can be found [here](https://github.com/7PH/sy-epc-ccs-2022-cf2-coding-challenge).  
 
 Note: I have never used Vue before and only had a few days to solve the challenge.
   
