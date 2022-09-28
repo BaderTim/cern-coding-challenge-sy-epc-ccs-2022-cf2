@@ -1,14 +1,14 @@
-This is my solution to a coding challenge I received while applying for a student fellowship position as frontend developer at [CERN](https://home.cern/). The original repository can be found [here](https://github.com/7PH/sy-epc-ccs-2022-cf2-coding-challenge).
+[This](https://badertim.github.io/sy-epc-ccs-2022-cf2-coding-challenge/) is my solution to the coding challenge '_sy-epc-ccs-2022-cf2_' I received while applying for a student fellowship position as frontend developer at [CERN](https://home.cern/). The original repository can be found [here](https://github.com/7PH/sy-epc-ccs-2022-cf2-coding-challenge).
   
-**Update: I passed the challenge.**
+**Update: I passed the challenge and got invited to an interview.**
 
 <hr/>
 
-# Context
+# The challenge
 
 You participate in a contest with your colleagues to create the most beautiful audio visualization app.
 
-# Requirements
+## Requirements
 
 Your task is to finish this web application, respecting the following requirements:
 
@@ -22,7 +22,7 @@ Your task is to finish this web application, respecting the following requiremen
 
 4. Comments should be added to the audio analysis code, so that a new developer could easily add features to the application.
 
-# Implementation
+## Implementation
 
 Ensure you have Node (>=12) and NPM (>=8) installed on the computer you will be using to complete this challenge.
 
@@ -36,14 +36,14 @@ Then, run `npm run serve` to develop your app while serving it locally. Bear in 
 
 Once you are satisfied with your implementation, complete the `comments.txt` file by answering the questions presented in the same file. If you are unsure about how to format your answers, please check the `comments.example.txt` file which contains example answers.
 
-# Constraints
+## Constraints
 
 * Do not change the music.mp3 file.
 * Any new external dependency you add to this project must be justified in the `comments.txt` file.
 * Assume the application will run on an up-to-date Chrome browser.
 * Do NOT use canvas for the visualization! Use SVG or HTML elements instead.
 
-# Deliverables
+## Deliverables
 
 Once you have
 * Implemented your solution in one of the folders (`challenge-vue` or `challenge-javascript`).
@@ -54,7 +54,7 @@ Please do the following to send us your deliverables
 * Make an archive named `“${FirstName}_${LastName}.zip”` of all the files in this directory. Make sure the `comments.txt` file is present, as well as the two folders `challenge-vue/` and `challenge-javascript/`. Also include the folder for the language you did not implement. (Unix command: `zip -r “${FirstName}_${LastName}.zip” ./*`). 
 * Go to this link: `https://cernbox.cern.ch/index.php/s/HoldQW4BLV2wSaR` and upload your archive
 
-# Ranking
+## Ranking
 
 Deliverables will be assessed using the following criterias, orderded by most important to less important:
 * Compliance with requirements.
@@ -62,7 +62,7 @@ Deliverables will be assessed using the following criterias, orderded by most im
 * Code quality (comments, code, JavaScript/Vue best practices, formatting) and efficiency.
 * Any improvement to the animation visual appeal will count as bonus.
 
-# Documentation
+## Documentation
 
 You might find the following links useful for completing this challenge:
 
