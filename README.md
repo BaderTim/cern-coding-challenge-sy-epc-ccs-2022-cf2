@@ -2,7 +2,6 @@
   
 **Update: I passed the challenge and got invited to an interview.**
 
-<hr/>
 
 # The challenge
 
